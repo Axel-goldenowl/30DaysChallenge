@@ -1,1 +1,1 @@
-export type { default as iProduct } from './Product';
+export type { iProduct } from './Product';

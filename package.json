@@ -19,6 +19,8 @@
     "format": "prettier --write \"src/**/(*.tsx|*.ts|*.css|*.scss)\""
   },
   "dependencies": {
+    "classnames": "^2.5.1",
+    "clsx": "^2.1.1",
     "normalize.css": "^8.0.1",
     "path": "^0.12.7",
     "react": "^18.3.1",

@@ -1,6 +1,9 @@
-import styles from './CustomButton.module.scss';
-function CustomButton({ title }) {
-  return <button className={styles.button}>{title}</button>;
-}
+import className from 'classnames/bind'
 
-export default CustomButton;
+import style from './CustomButton.module.scss'
+
+const cx = className.bind(style)
+
+export const CustomButton = ({ title }) => {
+  return <button className={cx('button')}>{title}</button>
+}

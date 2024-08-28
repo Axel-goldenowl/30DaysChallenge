@@ -1,1 +1,22 @@
+@mixin center-grid {
+  display: grid;
+  align-content: center;
+  place-items: center;
+}
+@mixin button-style($bg-color) {
+  background-color: $bg-color;
+  color: white;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  padding: 10px 20px;
+  margin-right: 7px;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.25s;
 
+  &:hover {
+    transform: scale(0.9);
+  }
+}

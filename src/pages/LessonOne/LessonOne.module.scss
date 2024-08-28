@@ -1,0 +1,6 @@
+@import '@/styles/colors.scss';
+.main {
+  display: flex;
+  height: 100vh;
+  background-image: linear-gradient(to right, $primary-color, $secondary-color);
+}

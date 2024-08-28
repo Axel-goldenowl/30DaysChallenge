@@ -1,3 +1,5 @@
+@import '@/styles/colors.scss';
+@import '@/styles/mixins.scss';
 .product__card {
   margin: auto;
   width: 320px;
@@ -50,7 +52,7 @@
   }
 }
 .product__title {
-  color: var(--primary-color);
+  color: $primary-color;
   transition: 0.5s;
   text-align: center;
 }
@@ -109,4 +111,7 @@
   opacity: 0;
   visibility: hidden;
   transition: 0.5s;
+}
+.button {
+  @include button-style($primary-color); 
 }

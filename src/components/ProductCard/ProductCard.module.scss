@@ -52,7 +52,7 @@
   }
 }
 .product__title {
-  color: $primary-color;
+  color: var(--primary-color);
   transition: 0.5s;
   text-align: center;
 }
@@ -113,5 +113,5 @@
   transition: 0.5s;
 }
 .button {
-  @include button-style($primary-color); 
+  @include button-style(--primary-color); 
 }

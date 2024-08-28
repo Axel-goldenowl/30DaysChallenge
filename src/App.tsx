@@ -1,5 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
-import { LessonOne,LessonThree } from '@/pages'
+import { LessonOne, LessonThree } from '@/pages'
 function App() {
   return (
     <Routes>

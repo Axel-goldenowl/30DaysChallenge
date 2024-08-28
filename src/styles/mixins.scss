@@ -4,7 +4,7 @@
   place-items: center;
 }
 @mixin button-style($bg-color) {
-  background-color: $bg-color;
+  background-color: var($bg-color);
   color: white;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;

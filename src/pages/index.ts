@@ -1,2 +1,2 @@
-export { LessonOne } from "./LessonOne"
-export { LessonThree } from "./LessonThree"
+export * from "./LessonOne"
+export * from "./LessonThree"

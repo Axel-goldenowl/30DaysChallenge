@@ -28,7 +28,7 @@
 .modal__header {
   display: flex;
   justify-content: space-between;   
-  background-color: $third-color;
+  background-color: var(--third-color);
   color: #fff;
   font-size: 18px;
   border-top-right-radius: 5px;
@@ -39,11 +39,11 @@
   padding: 15px;
 }
 .modal__title {
-  color: $third-color;
+  color: var(--third-color);
   margin-bottom: 10px;
 }
 .modal__btn-exit {
-  @include button-style(transparent);
+  @include button-style(--transparent-color);
   & {
     padding: 5px 5px;
     margin-right: 0px;
@@ -65,7 +65,7 @@
   }
 }
 .modal__btn-close {
-  @include button-style($third-color);
+  @include button-style(--third-color);
   & {
     float: right;
     margin-bottom: 18px;

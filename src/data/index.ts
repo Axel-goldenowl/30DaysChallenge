@@ -1,1 +1,1 @@
-export { products } from "./lesson1"
+export * from "./lesson1"

@@ -1,22 +1,13 @@
-import { ProductCard } from '@/components';
-const products = [
-  {
-    id: 1,
-    name: 'Nike Zoom KD 12',
-    price: 99,
-    sizes: [5, 6, 7, 8],
-    colors: ['red', 'green', 'blue'],
-  },
-];
+import { Routes, Route } from 'react-router-dom'
+import { LessonOne, LessonThree } from '@/pages'
 function App() {
   return (
-    <div className="main">
-      {products?.length > 0 &&
-        products.map((product, index) => (
-          <ProductCard key={index} product={product} />
-        ))}
-    </div>
-  );
+    <Routes>
+      <Route path='/lesson-1' element={<LessonOne />}></Route>
+      <Route path='/lesson-3' element={<LessonThree />}></Route>
+      {/* <Route path='/lesson-2' element={<LessonOne />}></Route> */}
+    </Routes>
+  )
 }
 
-export default App;
+export default App

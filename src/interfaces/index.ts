@@ -1,1 +1,1 @@
-export type { iProduct } from './Product';
+export type * from './Product';

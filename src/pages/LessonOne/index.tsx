@@ -5,6 +5,7 @@ import { products } from '@/data'
 import { ProductCard } from '@/components'
 
 import style from './LessonOne.module.scss'
+
 const cx = classNames.bind(style)
 
 export const LessonOne = () => {

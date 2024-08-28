@@ -6,17 +6,19 @@ import classNames from 'classnames/bind'
 
 import { images } from '@/data'
 
+import { useBoolean } from '@/hooks'
+
 import style from './LessonFour.module.scss'
 
 const cx = classNames.bind(style)
 
 export const LessonFour = () => {
-  const [isHide, setIsHide] = useState(true)
+  const [isHide, toogle] = useBoolean(true)
 
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const handleToggleModal = (index: number) => {
-    setIsHide((prev) => !prev)
+    toogle()
     isHide && setCurrentIndex(index)
   }
 

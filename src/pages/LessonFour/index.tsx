@@ -13,13 +13,13 @@ import style from './LessonFour.module.scss'
 const cx = classNames.bind(style)
 
 export const LessonFour = () => {
-  const [isHide, toogle] = useBoolean(true)
+  const { value, toggle } = useBoolean(true)
 
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const handleToggleModal = (index: number) => {
-    toogle()
-    isHide && setCurrentIndex(index)
+    toggle()
+    value && setCurrentIndex(index)
   }
 
   const handleSwitchImage = (offset: number) => {
@@ -35,7 +35,7 @@ export const LessonFour = () => {
             </li>
           ))}
       </ul>
-      <div className={cx('modal', isHide ? '' : 'modal__show')}>
+      <div className={cx('modal', value ? '' : 'modal__show')}>
         <span className={cx('modal__icon', 'modal__close')} onClick={() => handleToggleModal(0)}>
           <FaTimes />
         </span>

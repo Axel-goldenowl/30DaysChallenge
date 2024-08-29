@@ -41,18 +41,16 @@ export const LessonEight = () => {
       <div className={cx('container')}>
         <h1 className={cx('title')}>Register</h1>
         <form action='' className={cx('form__container')} onSubmit={handleSubmit(handleRegister)}>
-          <CustomInput type='text' name='username' register={register} placeholder='Username' error={errors.username} />
-          <CustomInput type='email' name='email' register={register} placeholder='Email' error={errors.email} />
+          <CustomInput type='text' register={register} placeholder='Username' error={errors.username} />
+          <CustomInput type='email' register={register} placeholder='Email' error={errors.email} />
           <CustomInput
             type='password'
-            name='password'
             register={register}
             placeholder='Password'
             error={errors.password}
           />
           <CustomInput
             type='password'
-            name='confirmPassword'
             register={register}
             placeholder='Confirm password'
             error={errors.confirmPassword}

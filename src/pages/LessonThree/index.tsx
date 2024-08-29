@@ -13,7 +13,7 @@ export const LessonThree = () => {
 
   return (
     <div className={cx('main')}>
-      <div className={cx('modal', value ? 'hide' : '')}>
+      <div className={cx('modal',{ 'hide': value })}>
         <div className={cx('modal__content')}>
           <section className={cx('modal__header')}>
             <p>Welcome to Nodemy</p>

@@ -1,6 +1,6 @@
 import { ReactElement, JSXElementConstructor } from 'react'
 
-export interface iRoute {
+export interface IRoute {
     path: string
     component: ReactElement<any, string | JSXElementConstructor<any>>
 }

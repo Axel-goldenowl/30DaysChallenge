@@ -15,7 +15,10 @@ const schema = yup.object().shape({
   username: yup.string().required('Username is required'),
   email: yup.string().required('Email is required'),
   password: yup.string().required('Password is required'),
-  confirmPassword: yup.string().required('Confirm password is required')
+  confirmPassword: yup
+    .string()
+    .required('Confirm password is required')
+    .oneOf([yup.ref('password')], 'Password must match')
 })
 
 const cx = classNames.bind(style)

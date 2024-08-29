@@ -1,6 +1,6 @@
 import { FieldError, UseFormRegister } from 'react-hook-form';
 
-export interface iInputProps {
+export interface IInputProps {
     name: string;
     type: string;
     placeholder: string;

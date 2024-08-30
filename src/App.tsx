@@ -7,9 +7,9 @@ import { IRoute } from '@/interfaces'
 function App() {
   return (
     <Routes>
-      {routes.map((route: IRoute) => {
-        return <Route key={route.path} {...route}></Route>
-      })}
+      {routes.map((route: IRoute) => (
+        <Route key={route.path} {...route}></Route>
+      ))}
     </Routes>
   )
 }

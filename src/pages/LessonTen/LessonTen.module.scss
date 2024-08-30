@@ -1,0 +1,59 @@
+@import '@/styles/mixins.scss';
+@import '@/styles/mixins.scss';
+
+.main {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--fouth-color);
+}
+.container {
+  width: 500px;
+  background: #fff;
+  margin: auto;
+  padding: 18px 25px 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.06);
+}
+.title {
+}
+.tag__container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  margin: 20px 0;
+  border-radius: 5px;
+  border: 1px solid #888;
+}
+.tag__list {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+.tag__item {
+  display: flex;
+  align-items: center;
+  background: var(--fouth-color);
+  color: white;
+  border-radius: 5px;
+  margin: 4px 3px;
+  padding: 5px 8px 5px 10px;
+}
+.tag__icon {
+  margin-left: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.form__input {
+  flex: 1;
+  padding: 5px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+.form__btn {
+  @include button-style(--fouth-color);
+  &{
+    font-size: 16px;
+    font-weight: 500;
+  }
+}

@@ -1,4 +1,4 @@
-import { LessonOne, LessonThree, LessonFour, LessonEight } from '@/pages'
+import { LessonOne, LessonThree, LessonFour, LessonEight, LessonTen } from '@/pages'
 
 export const routes = [
     {
@@ -16,5 +16,9 @@ export const routes = [
     {
         path: "/lesson-8",
         element: <LessonEight/>
+    },
+    {
+        path: "/lesson-10",
+        element: <LessonTen/>
     }
 ]

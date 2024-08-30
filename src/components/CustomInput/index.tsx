@@ -10,10 +10,9 @@ const cx = className.bind(style)
 
 export const CustomInput: React.FC<IInputProps> = ({ name, type, placeholder, register, error }) => {
   return (
-    <div className={cx('form__control', error ? 'form__control-error' : '')}>
+    <div className={cx('form__control', { 'form__control-error': error })}>
       <input
         id={name}
-        name={name}
         type={type}
         placeholder={placeholder}
         {...register(name)}

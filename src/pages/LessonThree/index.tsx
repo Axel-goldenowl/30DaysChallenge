@@ -9,11 +9,11 @@ import style from './LessonThree.module.scss'
 const cx = classNames.bind(style)
 
 export const LessonThree = () => {
-  const [isHide, toggle] = useBoolean(true)
+  const { value, toggle } = useBoolean(true)
 
   return (
     <div className={cx('main')}>
-      <div className={cx('modal', isHide ? 'hide' : '')}>
+      <div className={cx('modal',{ 'hide': value })}>
         <div className={cx('modal__content')}>
           <section className={cx('modal__header')}>
             <p>Welcome to Nodemy</p>
@@ -28,7 +28,7 @@ export const LessonThree = () => {
               Close
             </button>
           </section>
-        </div>  
+        </div>
       </div>
       <button className={cx('modal__btn-open')} onClick={toggle}>
         Open Modal

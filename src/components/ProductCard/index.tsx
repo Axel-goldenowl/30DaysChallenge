@@ -5,7 +5,7 @@ import className from 'classnames/bind'
 import { BiCartAlt } from 'react-icons/bi'
 import { FaRegHeart } from 'react-icons/fa'
 
-import { Product } from '@/interfaces'
+import { IProduct } from '@/interfaces'
 
 import productImg from '@/assets/images/Nike Zoom KD 12.png'
 
@@ -13,7 +13,7 @@ import style from './ProductCard.module.scss'
 const cx = className.bind(style)
 
 interface ProductCardProps {
-  product: Product
+  product: IProduct
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {

@@ -2,12 +2,13 @@ import { Routes, Route } from 'react-router-dom'
 
 import { routes } from '@/routes'
 
+import { IRoute } from '@/interfaces'
+
 function App() {
   return (
     <Routes>
-      {routes.map((route) => {
-        let Page = route.component
-        return <Route key={route.path} path={route.path} element={<Page />}></Route>
+      {routes.map((route: IRoute) => {
+        return <Route key={route.path} {...route}></Route>
       })}
     </Routes>
   )

@@ -1,63 +1,57 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import classNames from 'classnames/bind'
+import { useInfiniteQuery } from '@tanstack/react-query';
 
-import { GoSearch } from 'react-icons/go'
+import { GoSearch } from 'react-icons/go';
 
-import { useDebounce } from '@/hooks'
+import classNames from 'classnames/bind';
 
-import { apiGetProducts } from '@/services'
+import { useDebounce } from '@/hooks';
 
-import style from './LessonFifteen.module.scss'
+import { getProducts } from '@/services';
 
-const cx = classNames.bind(style)
+import { IProductLesson15 } from '@/interfaces';
+
+import style from './LessonFifteen.module.scss';
+
+const cx = classNames.bind(style);
 
 export const LessonFifteen = () => {
-  const [products, setProducts] = useState([])
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useInfiniteQuery({
+    initialPageParam:0,
+    queryKey: ['products'],
+    queryFn: getProducts,
+    getNextPageParam: (lastPage:any) => lastPage.nextPage,
+  });
 
-  const [filteredProducts, setFilteredProducts] = useState([])
+  const [searchValue, setSearchValue] = useState('');
+  const debouncedSearchValue = useDebounce(searchValue, 500);
 
-  const [offset, setOffset] = useState(10)
-
-  const [loading, setLoading] = useState(false)
-
-  const [searchValue, setSearchValue] = useState('')
-
-  const debouncedSearchValue = useDebounce(searchValue, 500)
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const { status, data } = await apiGetProducts()
-        if (status === 200) {
-          setProducts(data)
-          setFilteredProducts(data)
-        }
-      } catch (error) {
-        console.error('Failed to fetch products:', error)
-      }
-    }
-    fetchData()
-  }, [])
+  const [filteredProducts, setFilteredProducts] = useState<IProductLesson15[]>([]);
 
   useEffect(() => {
+    const products: IProductLesson15[] = data?.pages?.flatMap((page:any )=> page.products) || [];
     if (debouncedSearchValue.trim()) {
       const resultSearchProducts = products.filter((product) =>
         product.title.toLowerCase().includes(debouncedSearchValue.toLowerCase())
-      )
-      setFilteredProducts(resultSearchProducts)
+      );
+      setFilteredProducts(resultSearchProducts);
     } else {
-      setFilteredProducts(products)
+      setFilteredProducts(products);
     }
-  }, [debouncedSearchValue, products])
+  }, [debouncedSearchValue, data]);
 
   const handleLoadMore = () => {
-    if (offset < filteredProducts.length) {
-      setOffset((prevOffset) => prevOffset + 10)
-      setLoading(true)
-      setTimeout(() => setLoading(false), 300)
+    if (hasNextPage) {
+      fetchNextPage();
     }
-  }
+  };
 
   return (
     <div className={cx('main')}>
@@ -77,7 +71,7 @@ export const LessonFifteen = () => {
         {filteredProducts.length > 0 && (
           <>
             <ul className={cx('product__list')}>
-              {filteredProducts.slice(0, offset).map((product) => (
+              {filteredProducts.map((product) => (
                 <li key={product.id} className={cx('product__item')}>
                   <img src={product.image} alt={product.title} className={cx('product__image')} />
                   <div className={cx('product__detail')}>
@@ -87,15 +81,19 @@ export const LessonFifteen = () => {
                 </li>
               ))}
             </ul>
-            {offset < filteredProducts.length && (
-              <button className={cx('product__btn',{ "disable": loading })} onClick={handleLoadMore} disabled={loading}>
+            {hasNextPage && (
+              <button
+                className={cx('product__btn', { 'disable': isFetchingNextPage })}
+                onClick={handleLoadMore}
+                disabled={isFetchingNextPage}
+              >
                 Load more
-                {loading && <div className={cx('loading')}></div>}
+                {isLoading && <div className={cx('loading')}></div>}
               </button>
             )}
           </>
         )}
       </div>
     </div>
-  )
-}
+  );
+};

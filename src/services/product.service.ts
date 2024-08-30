@@ -1,11 +1,17 @@
-import { instance as axiosClient } from '@/config';
+import { apiGetProducts } from "@/apis";
 
-export const apiGetProducts = async () => {
+export const getProducts = async ({ pageParam = 0 }) => {
   try {
-    const response = await axiosClient.get('/products');
-    return response 
+    const { status, data } = await apiGetProducts(pageParam, 10);
+    if (status === 200) {
+      return {
+        products: data,
+        nextPage: data.length === 10 ? pageParam + 10 : undefined,
+      };
+    }
+    return { products: [], nextPage: undefined };
   } catch (error) {
-    console.error('Error fetching products:', error);
-    throw error;
+    console.error('Failed to fetch products:', error);
+    throw new Error('Failed to fetch products');
   }
 };

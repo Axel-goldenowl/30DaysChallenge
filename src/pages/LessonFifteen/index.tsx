@@ -25,7 +25,7 @@ export const LessonFifteen = () => {
     initialPageParam: 0,
     queryKey: ['products'],
     queryFn: getProducts,
-    getNextPageParam: (lastPage: any) => lastPage.nextPage,
+    getNextPageParam: (lastPage: IProductLesson15) => lastPage.nextPage,
   });
 
   const lastProductRef = useRef<HTMLLIElement | null>(null);
@@ -36,7 +36,7 @@ export const LessonFifteen = () => {
   const [filteredProducts, setFilteredProducts] = useState<IProductLesson15[]>([]);
 
   useEffect(() => {
-    const products: IProductLesson15[] = data?.pages?.flatMap((page: any) => page.products) || [];
+    const products: IProductLesson15[] = data?.pages?.flatMap((page: IProductLesson15) => page.products) || [];
     if (debouncedSearchValue.trim()) {
       const resultSearchProducts = products.filter((product) =>
         product.title.toLowerCase().includes(debouncedSearchValue.toLowerCase())
@@ -69,6 +69,7 @@ export const LessonFifteen = () => {
 
     return () => {
       if (lastProductRef.current) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         observer.unobserve(lastProductRef.current);
       }
     };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 
@@ -19,16 +19,16 @@ const cx = classNames.bind(style);
 export const LessonFifteen = () => {
   const {
     data,
-    isLoading,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
   } = useInfiniteQuery({
-    initialPageParam:0,
+    initialPageParam: 0,
     queryKey: ['products'],
     queryFn: getProducts,
-    getNextPageParam: (lastPage:any) => lastPage.nextPage,
+    getNextPageParam: (lastPage: any) => lastPage.nextPage,
   });
+
+  const lastProductRef = useRef<HTMLLIElement | null>(null);
 
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchValue = useDebounce(searchValue, 500);
@@ -36,7 +36,7 @@ export const LessonFifteen = () => {
   const [filteredProducts, setFilteredProducts] = useState<IProductLesson15[]>([]);
 
   useEffect(() => {
-    const products: IProductLesson15[] = data?.pages?.flatMap((page:any )=> page.products) || [];
+    const products: IProductLesson15[] = data?.pages?.flatMap((page: any) => page.products) || [];
     if (debouncedSearchValue.trim()) {
       const resultSearchProducts = products.filter((product) =>
         product.title.toLowerCase().includes(debouncedSearchValue.toLowerCase())
@@ -47,11 +47,32 @@ export const LessonFifteen = () => {
     }
   }, [debouncedSearchValue, data]);
 
-  const handleLoadMore = () => {
-    if (hasNextPage) {
-      fetchNextPage();
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && hasNextPage) {
+            fetchNextPage();
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0,
+      }
+    );
+
+    if (lastProductRef.current) {
+      observer.observe(lastProductRef.current);
     }
-  };
+
+    return () => {
+      if (lastProductRef.current) {
+        observer.unobserve(lastProductRef.current);
+      }
+    };
+  }, [filteredProducts, fetchNextPage, hasNextPage]);
 
   return (
     <div className={cx('main')}>
@@ -68,31 +89,21 @@ export const LessonFifteen = () => {
             />
           </div>
         </div>
-        {filteredProducts.length > 0 && (
-          <>
-            <ul className={cx('product__list')}>
-              {filteredProducts.map((product) => (
-                <li key={product.id} className={cx('product__item')}>
-                  <img src={product.image} alt={product.title} className={cx('product__image')} />
-                  <div className={cx('product__detail')}>
-                    <h4 className={cx('product__name')}>{product.title.slice(0, 30)}...</h4>
-                    <p className={cx('product__price')}>${product.price}</p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            {hasNextPage && (
-              <button
-                className={cx('product__btn', { 'disable': isFetchingNextPage })}
-                onClick={handleLoadMore}
-                disabled={isFetchingNextPage}
-              >
-                Load more
-                {isLoading && <div className={cx('loading')}></div>}
-              </button>
-            )}
-          </>
-        )}
+        <ul className={cx("product__list")}>
+          {filteredProducts.map((product, index) => (
+            <li 
+              key={product.id} 
+              className={cx('product__item')}
+              ref={index === filteredProducts.length - 1 ? lastProductRef : null}
+            >
+              <img src={product.image} alt={product.title} className={cx('product__image')} />
+              <div className={cx('product__detail')}>
+                <h4 className={cx('product__name')}>{product.title.slice(0, 30)}...</h4>
+                <p className={cx('product__price')}>${product.price}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );
